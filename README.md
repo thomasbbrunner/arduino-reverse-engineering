@@ -1,4 +1,4 @@
-# Reverse Engineering an Arduino's Program
+# Reverse Engineering an Arduino Application
 
 Recently I got a used Arduino Uno Rev3 SMD board as a present. I knew that the previous owner had used the board for prototyping, but didn't know exactly for what. I decided that it would be interesting to try and extract the program from the Arduino and to disassemble it.
 
@@ -22,9 +22,13 @@ First connect the Arduino to the computer using the normal USB cable.
 
 The first step is to extract the program from the microcontroller's flash memory. Use `avrdude` to read the memory's contents:
 
-Extract raw binary: `avrdude -p m328p -c arduino -D -P<port> -b 115200 -v -U flash:r:flashdump.bin:r`
+Extract raw binary: 
 
-Extract hex:        `avrdude -p m328p -c arduino -D -P<port> -b 115200 -v -U flash:r:flashdump.hex:i`
+`avrdude -p m328p -c arduino -D -P<port> -b 115200 -v -U flash:r:flashdump.bin:r`
+
+Extract hex:        
+
+`avrdude -p m328p -c arduino -D -P<port> -b 115200 -v -U flash:r:flashdump.hex:i`
 
 *Remember to replace `<port>` by the actual port that your Arduino is connected to (Google can help you here).*
 
