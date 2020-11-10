@@ -2,7 +2,7 @@
 
 Recently I got a used Arduino Uno Rev3 SMD board as a present. I knew that the previous owner had used the board for prototyping, but didn't know exactly for what. I decided that it would be interesting to try and extract the program from the Arduino and to disassemble it.
 
-Moreover, as it was my first time using an AVR microcontroller (I had previous experience with other manufacturers), it would give me an introduction to the tools used to develop for AVR microcontrollers.
+Moreover, as it was my first time using an AVR microcontroller, it would give me an introduction to the tools used to develop for AVR microcontrollers.
 
 ## Requirements
 
