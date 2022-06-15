@@ -1,32 +1,32 @@
 # Reverse Engineering an Arduino Application
 
-Recently I got a used Arduino Uno Rev3 SMD board as a present. I knew that the previous owner had used the board for prototyping, but didn't know exactly for what. I decided that it would be interesting to try and extract the program from the Arduino and to disassemble it.
+Recently, I received a used Arduino Uno Rev3 SMD board as a gift. I knew that the previous owner had used the board for prototyping, but didn't know exactly for what. I thought that it would be interesting to try and extract the binary from the Arduino and to disassemble it.
 
-Moreover, as it was my first time using an AVR microcontroller, it would give me an introduction to the tools used to develop for AVR microcontrollers.
+Moreover, as it was my first time using an AVR microcontroller, it would give me an introduction to the development tools of AVR microcontrollers.
 
 ## Requirements
 
-`avrdude`: program to manipulate the memory of AVR microcontrollers. On many Linux distros can be downloaded from the standard repositories. 
+`avrdude`: program to manipulate the memory of AVR microcontrollers. It can be downloaded from Linux package managers. 
 
 For Ubuntu: `sudo apt install avrdude`
 
-`avr-objdump`: program to display the contents of the memory in a more human-readable way. Can also be downloaded from the standard repositories. Can be found in the `binutils-avr` package.
+`avr-objdump`: program to display the memory contents in a more human-readable way. It can also be downloaded from Linux package managers. 
 
 For Ubuntu: `sudo apt install binutils-avr`
 
 ## Section 0: Connecting the Arduino to the PC
 
-First connect the Arduino to the computer using the normal USB cable. 
+First connect the Arduino to the computer using the USB cable. 
 
 ## Section 1: Extracting the program
 
 The first step is to extract the program from the microcontroller's flash memory. Use `avrdude` to read the memory's contents:
 
-Extract raw binary: 
+Extract raw binary:
 
 `avrdude -p m328p -c arduino -D -P<port> -b 115200 -v -U flash:r:flashdump.bin:r`
 
-Extract hex:        
+Extract hex:
 
 `avrdude -p m328p -c arduino -D -P<port> -b 115200 -v -U flash:r:flashdump.hex:i`
 
@@ -36,7 +36,7 @@ Extract hex:
 
 ### Looking for strings
 
-An interesting thing to try is to see which character strings can be found in the program. This could give you some good tips on what the program does. The `strings` program is very useful here:
+An interesting thing to try is to see which strings can be found in the binary. This could give us some hints on what the program does. To extract strings run:
 
 `strings flashdump.bin`
 
@@ -44,7 +44,7 @@ For the case of the mysterious program in my new Arduino, there were strings lik
 
 ### Taking a look at the binary
 
-Now, we also want to see the binary for ourselves, to get a feeling of how big the program was, and to see if we find any interesting sections of the memory. Now, as we are dealing here with binary files, we can't simply open them in the editor. Instead, we can use a program called `xxd`, that will get the binary and display it in a better way for us:
+Now, we also want to see the contents of the binary for ourselves, maybe we find something interesting there. As we are dealing here with a binary file, we can't simply open it in the editor. Instead, we must use a program called `xxd`, which will create a hex dump of the binary:
 
 `xxd flashdump.bin`
 
@@ -67,4 +67,4 @@ To get the assembly code of your program, all you need to do is run `objdump` on
 
 `avr-objdump -Dx -m avr5 flashdump.hex`
 
-And that's it! You should have now the assembly code of your program!
+And that's it! We should have now the assembly code of the binary file!
